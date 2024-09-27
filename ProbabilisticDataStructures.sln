@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DC62291E-5139-4923-B5A8-BED4F2A4E0D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProbabilisticDataStructures", "src\ProbabilisticDataStructures\ProbabilisticDataStructures.csproj", "{B778CB91-1100-441F-BCF6-FFE44AD193A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DACE811A-566B-4B1C-84D0-47E3E4B3EF0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProbabilisticDataStructures.Tests", "tests\ProbabilisticDataStructures.Tests\ProbabilisticDataStructures.Tests.csproj", "{D015ED83-881E-4395-B48B-E027F204AD8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B778CB91-1100-441F-BCF6-FFE44AD193A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B778CB91-1100-441F-BCF6-FFE44AD193A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B778CB91-1100-441F-BCF6-FFE44AD193A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B778CB91-1100-441F-BCF6-FFE44AD193A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D015ED83-881E-4395-B48B-E027F204AD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D015ED83-881E-4395-B48B-E027F204AD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D015ED83-881E-4395-B48B-E027F204AD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D015ED83-881E-4395-B48B-E027F204AD8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B778CB91-1100-441F-BCF6-FFE44AD193A8} = {DC62291E-5139-4923-B5A8-BED4F2A4E0D6}
+		{D015ED83-881E-4395-B48B-E027F204AD8B} = {DACE811A-566B-4B1C-84D0-47E3E4B3EF0E}
+	EndGlobalSection
+EndGlobal
