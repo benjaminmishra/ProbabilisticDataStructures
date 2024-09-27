@@ -3,35 +3,38 @@
 public class BloomFilter<T>
 {
     private readonly bool[] _bitArray;
-    private readonly List<Func<T, int>> _hashFunction;
-    
-    public int Capacity {get; init;}
+    private readonly List<Func<T, int>> _hashFunctions;
 
-    internal BloomFilter(int size, List<Func<T, int>> hashFunctions)
+    public int Capacity { get; init; }
+
+    public BloomFilter(int capacity)
     {
-        Capacity = size;
-        _bitArray = new bool[size];
-        _hashFunction = hashFunctions;
+        Capacity = capacity;
+        _bitArray = new bool[capacity];
+        _hashFunctions = [];
     }
 
     public bool TryAdd(T item)
     {
-        var positionsArray = new int[_hashFunction.Count];
+        if (_hashFunctions.Count == 0)
+            throw new InvalidOperationException("Atleast one hash function is required");
+
+        var positionsArray = new int[_hashFunctions.Count];
         var i = 0;
 
         // Apply has functions and store them in a temp list
-        foreach (var hashFunction in _hashFunction)
+        foreach (var hashFunction in _hashFunctions)
         {
             var position = hashFunction(item);
             positionsArray[i] = position;
             i++;
         }
 
-        if(positionsArray.Length > Capacity)
+        if (positionsArray.Length > Capacity)
             return false;
-        
+
         // Set postions since we have done all checks and are ready to commit
-        foreach(var pos in positionsArray)
+        foreach (var pos in positionsArray)
         {
             _bitArray[pos] = true;
         }
@@ -41,12 +44,24 @@ public class BloomFilter<T>
 
     public bool MayContain(T item)
     {
-        foreach (var hashFunction in _hashFunction)
+        if (_hashFunctions.Count == 0)
+            throw new InvalidOperationException("Atleast one hash function is required");
+
+        foreach (var hashFunction in _hashFunctions)
         {
             int probablePosition = hashFunction(item);
             if (!_bitArray[probablePosition])
                 return false;
         }
         return true;
+    }
+
+    public BloomFilter<T> AddHashFunction(Func<T, int> hashFunction)
+    {
+        if (_hashFunctions.Count > Capacity)
+            throw new InvalidOperationException("Number of hash functions cannot be greater than assigned capacity");
+
+        _hashFunctions.Add(hashFunction);
+        return this;
     }
 }
