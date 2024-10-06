@@ -1,7 +1,6 @@
 using System.Text;
 using MurmurHash.Net;
 using System.Security.Cryptography;
-using Xunit;
 
 namespace ProbabilisticDataStructures.Tests;
 
@@ -126,7 +125,7 @@ public class BloomFilterTests
         int murmurHash(string arg) => (int)MurmurHash3.Hash32(bytes: Encoding.ASCII.GetBytes(arg), seed: 293U);
         int inbuiltHash(string arg) => arg.GetHashCode();
 
-        var bloomFilter = new BloomFilter<string>(5)
+        var bloomFilter = new BloomFilter<string>(100000)
             .AddHashFunction(murmurHash)
             .AddHashFunction(inbuiltHash);
 
@@ -139,6 +138,27 @@ public class BloomFilterTests
         Assert.True(bloomFilter.MayContain("one"));
         Assert.True(bloomFilter.MayContain("five"));
         Assert.False(bloomFilter.MayContain("six"));
+    }
+
+    [Fact]
+    public void BloomFilterTryAdd_CheckCapacityLimit_FalsePositive()
+    {
+        int murmurHash(string arg) => (int)MurmurHash3.Hash32(bytes: Encoding.ASCII.GetBytes(arg), seed: 293U);
+        int inbuiltHash(string arg) => arg.GetHashCode();
+
+        var bloomFilter = new BloomFilter<string>(5)
+            .AddHashFunction(murmurHash)
+            .AddHashFunction(inbuiltHash);
+
+        bloomFilter.TryAdd("one");
+        bloomFilter.TryAdd("two");
+        bloomFilter.TryAdd("three");
+        bloomFilter.TryAdd("four");
+        bloomFilter.TryAdd("five");
+
+        Assert.True(bloomFilter.MayContain("one"));
+        Assert.True(bloomFilter.MayContain("five"));
+        Assert.True(bloomFilter.MayContain("six"));
     }
 
     [Fact]
