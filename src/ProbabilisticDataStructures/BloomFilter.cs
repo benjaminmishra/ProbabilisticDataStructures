@@ -25,8 +25,8 @@ public class BloomFilter<T>
         // Apply has functions and store them in a temp list
         foreach (var hashFunction in _hashFunctions)
         {
-            var position = hashFunction(item);
-            positionsArray[i] = position;
+            var hash = hashFunction(item);
+            positionsArray[i] = GetIndexFromHash(hash);
             i++;
         }
 
@@ -49,7 +49,7 @@ public class BloomFilter<T>
 
         foreach (var hashFunction in _hashFunctions)
         {
-            int probablePosition = hashFunction(item);
+            int probablePosition = GetIndexFromHash(hashFunction(item));
             if (!_bitArray[probablePosition])
                 return false;
         }
@@ -64,4 +64,6 @@ public class BloomFilter<T>
         _hashFunctions.Add(hashFunction);
         return this;
     }
+
+    private int GetIndexFromHash(int hash) => Math.Abs(hash) % Capacity;
 }
